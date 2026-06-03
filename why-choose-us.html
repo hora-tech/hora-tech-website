@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Choose Us – Hora Technologies</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0a0f2c; --navy2: #111936; --accent: #00c8ff; --accent2: #0078d4;
+      --text: #e8eaf0; --muted: #8892a4; --white: #ffffff;
+      --card-bg: #131d3b; --border: rgba(0,200,255,0.15);
+    }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--navy); color: var(--text); line-height: 1.6; }
+
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,15,44,0.97); border-bottom: 1px solid var(--border); backdrop-filter: blur(8px); }
+    .nav-inner { max-width: 1140px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+    .nav-logo { font-size: 1.25rem; font-weight: 700; color: var(--white); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    .page-hero { background: linear-gradient(135deg, #0a0f2c 0%, #0d1a3a 60%, #0a1628 100%); border-bottom: 1px solid var(--border); padding: 80px 24px 64px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 15% 50%, rgba(0,120,212,0.15) 0%, transparent 70%); }
+    .page-hero-inner { max-width: 1140px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-eyebrow { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; color: var(--white); margin-bottom: 14px; }
+    .page-hero p { font-size: 1.1rem; color: var(--muted); max-width: 600px; }
+
+    section { padding: 72px 24px; }
+    .section-inner { max-width: 1140px; margin: 0 auto; }
+    .section-label { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
+    .section-title { font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 800; color: var(--white); margin-bottom: 10px; }
+    .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; margin: 14px 0 40px; }
+    .btn { display: inline-block; padding: 13px 30px; border-radius: 4px; font-weight: 700; font-size: 0.88rem; text-decoration: none; transition: all 0.2s; }
+    .btn-primary { background: var(--accent2); color: #fff; border: 2px solid var(--accent2); }
+    .btn-primary:hover { background: var(--accent); border-color: var(--accent); color: var(--navy); }
+    .btn-white { background: #fff; color: var(--accent2); border: 2px solid #fff; font-weight: 700; }
+    .btn-white:hover { background: transparent; color: #fff; }
+    .btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.5); }
+    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+    /* MAIN REASONS */
+    .reasons { background: var(--navy2); }
+    .reasons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .reason-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 36px 28px; position: relative; overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .reason-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+    .reason-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+    }
+    .reason-card:hover::after { transform: scaleX(1); }
+    .reason-num { font-size: 3rem; font-weight: 900; color: rgba(0,200,255,0.1); position: absolute; top: 20px; right: 24px; line-height: 1; }
+    .reason-icon { font-size: 2.2rem; margin-bottom: 16px; }
+    .reason-card h3 { font-size: 1.1rem; font-weight: 800; color: var(--white); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .reason-card p { font-size: 0.92rem; color: var(--muted); line-height: 1.75; }
+
+    /* DIFFERENTIATORS */
+    .diff { background: var(--navy); }
+    .diff-rows { display: flex; flex-direction: column; gap: 16px; }
+    .diff-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+    }
+    @media (max-width: 640px) { .diff-row { grid-template-columns: 1fr; } }
+    .diff-cell { padding: 24px 28px; }
+    .diff-cell.label-cell { background: rgba(0,120,212,0.08); border-right: 1px solid var(--border); }
+    .diff-cell .label-head { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 6px; }
+    .diff-cell h4 { font-size: 0.95rem; font-weight: 700; color: var(--white); }
+    .diff-cell p { font-size: 0.88rem; color: var(--muted); }
+
+    /* STATS STRIP */
+    .stats-strip { background: linear-gradient(90deg, #0a1628 0%, #0d1a3a 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 48px 24px; }
+    .stats-inner { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 24px; text-align: center; }
+    .stat-item h3 { font-size: 2.4rem; font-weight: 900; color: var(--accent); }
+    .stat-item p { font-size: 0.85rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ECOSYSTEM STRIP */
+    .ecosystem-strip { background: var(--navy2); border-top: 1px solid var(--border); }
+    .eco-inner { max-width: 1140px; margin: 0 auto; padding: 56px 24px; text-align: center; }
+    .eco-inner p { color: var(--muted); font-size: 1rem; max-width: 620px; margin: 0 auto 28px; }
+    .eco-partner-tags { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+    .eco-tag { padding: 10px 24px; border-radius: 6px; background: var(--card-bg); border: 1px solid var(--border); font-size: 0.9rem; font-weight: 700; color: var(--white); }
+
+    .cta-strip { background: linear-gradient(90deg, var(--accent2) 0%, #005fa3 100%); padding: 56px 24px; text-align: center; }
+    .cta-strip h2 { font-size: 1.9rem; font-weight: 800; color: #fff; margin-bottom: 12px; }
+    .cta-strip p { color: rgba(255,255,255,0.8); margin-bottom: 28px; }
+
+    footer { background: #060a1a; border-top: 1px solid var(--border); padding: 28px 24px; }
+    .footer-bottom { max-width: 1140px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; }
+    .footer-bottom p { color: var(--muted); font-size: 0.8rem; }
+    .footer-bottom a { color: var(--accent); text-decoration: none; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Hora <span>Technologies</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="why-choose-us.html" class="active">Why Choose Us</a></li>
+      <li><a href="partners.html">Partners</a></li>
+      <li><a href="contact.html">Get In Touch</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">Why Hora Technologies</div>
+    <h1>Why Choose Us</h1>
+    <p>Your Success Is Our Priority</p>
+  </div>
+</div>
+
+<!-- MAIN REASONS -->
+<section class="reasons">
+  <div class="section-inner">
+    <div class="section-label">Our Strengths</div>
+    <h2 class="section-title">What Sets Us Apart</h2>
+    <div class="divider"></div>
+    <div class="reasons-grid">
+      <div class="reason-card">
+        <div class="reason-num">01</div>
+        <div class="reason-icon">⚡</div>
+        <h3>Cutting Edge Technology</h3>
+        <p>We stay ahead of the curve, continuously evaluating and implementing the latest innovations — from generative AI and agentic systems to advanced cybersecurity platforms — to give our clients a decisive competitive advantage.</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-num">02</div>
+        <div class="reason-icon">🤝</div>
+        <h3>Client-Centric Approach</h3>
+        <p>Your goals drive every solution we design. We partner deeply with your team to ensure technology investments align with business objectives — delivering outcomes that matter, not just technology for its own sake.</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-num">03</div>
+        <div class="reason-icon">🕐</div>
+        <h3>24/7 Support</h3>
+        <p>Round-the-clock technical support ensures your systems run smoothly without interruption. Our support teams are always available to resolve issues rapidly and keep your operations running at peak performance.</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-num">04</div>
+        <div class="reason-icon">📋</div>
+        <h3>Proven Methodology</h3>
+        <p>Our structured delivery process — from initial consultation through design, implementation, and ongoing optimisation — ensures successful outcomes every time. We do IT right, every time.</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-num">05</div>
+        <div class="reason-icon">🌐</div>
+        <h3>World-Class Ecosystem</h3>
+        <p>We don't work alone. Our strategic partnerships with Premier Federal and Trend Micro bring enterprise-grade cybersecurity, compliance, and technology capabilities that would otherwise be out of reach for most organisations.</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-num">06</div>
+        <div class="reason-icon">📊</div>
+        <h3>Measurable Results</h3>
+        <p>Every engagement is designed with clear, measurable objectives. We track, report, and continuously optimise against KPIs that reflect real business value — not just technical metrics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item"><h3>24/7</h3><p>Technical Support</p></div>
+    <div class="stat-item"><h3>AI + Cyber</h3><p>Dual Expertise</p></div>
+    <div class="stat-item"><h3>2</h3><p>Strategic Partners</p></div>
+    <div class="stat-item"><h3>Global</h3><p>Reach &amp; Delivery</p></div>
+  </div>
+</div>
+
+<!-- DIFFERENTIATORS -->
+<section class="diff">
+  <div class="section-inner">
+    <div class="section-label">Head-to-Head</div>
+    <h2 class="section-title">The Hora Difference</h2>
+    <div class="divider"></div>
+    <div class="diff-rows">
+      <div class="diff-row">
+        <div class="diff-cell label-cell">
+          <div class="label-head">Typical IT Vendor</div>
+          <h4>Sells products and moves on</h4>
+        </div>
+        <div class="diff-cell">
+          <div class="label-head">Hora Technologies</div>
+          <p>Builds long-term partnerships — acting as an extension of your team, invested in your success.</p>
+        </div>
+      </div>
+      <div class="diff-row">
+        <div class="diff-cell label-cell">
+          <div class="label-head">Typical IT Vendor</div>
+          <h4>Generic, off-the-shelf solutions</h4>
+        </div>
+        <div class="diff-cell">
+          <div class="label-head">Hora Technologies</div>
+          <p>Tailored, enterprise-grade solutions designed around your unique environment, goals, and constraints.</p>
+        </div>
+      </div>
+      <div class="diff-row">
+        <div class="diff-cell label-cell">
+          <div class="label-head">Typical IT Vendor</div>
+          <h4>Limited cybersecurity capability</h4>
+        </div>
+        <div class="diff-cell">
+          <div class="label-head">Hora Technologies</div>
+          <p>Backed by Premier Federal (CMMC, SOC, SIEM/XDR) and Trend Micro (Vision One, XDR, MDR) — comprehensive security at every layer.</p>
+        </div>
+      </div>
+      <div class="diff-row">
+        <div class="diff-cell label-cell">
+          <div class="label-head">Typical IT Vendor</div>
+          <h4>Reactive support model</h4>
+        </div>
+        <div class="diff-cell">
+          <div class="label-head">Hora Technologies</div>
+          <p>24/7 proactive monitoring and support — issues are identified and resolved before they impact your business.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<div class="ecosystem-strip">
+  <div class="eco-inner">
+    <div class="section-label" style="text-align:center;">Our Ecosystem</div>
+    <h2 class="section-title" style="color:var(--white); font-size:1.8rem; font-weight:800; margin-bottom:12px;">Backed by Industry Leaders</h2>
+    <p>Our strategic partner network amplifies the depth and quality of every solution we deliver.</p>
+    <div class="eco-partner-tags">
+      <span class="eco-tag">Premier Federal — Cybersecurity &amp; Compliance</span>
+      <span class="eco-tag">Trend Micro — Cybersecurity Platform</span>
+    </div>
+    <a href="partners.html" class="btn btn-primary">View Our Partner Ecosystem</a>
+  </div>
+</div>
+
+<section class="cta-strip">
+  <h2>Let's Build Something Great Together</h2>
+  <p>Talk to us about your technology challenges — we're ready to help you succeed.</p>
+  <a href="contact.html" class="btn btn-white">Get In Touch</a>
+  <a href="services.html" class="btn btn-outline" style="margin-left:14px;">Our Services →</a>
+</section>
+
+<footer>
+  <div class="footer-bottom">
+    <p>© 2026 Hora Technologies · <a href="mailto:info@hora-tech.com">info@hora-tech.com</a> · New Delhi, India</p>
+    <a href="index.html">← Back to Home</a>
+  </div>
+</footer>
+
+</body>
+</html>

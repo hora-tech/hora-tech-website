@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homeland Security Expo 2026 – Hora Technologies</title>
+  <!-- QR code library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a0f2c;
+      --navy2: #111936;
+      --accent: #00c8ff;
+      --accent2: #0078d4;
+      --text: #e8eaf0;
+      --muted: #8892a4;
+      --white: #ffffff;
+      --card-bg: #131d3b;
+      --border: rgba(0,200,255,0.15);
+      --gold: #f5a623;
+    }
+
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--navy); color: var(--text); line-height: 1.6; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,15,44,0.97); border-bottom: 1px solid var(--border); backdrop-filter: blur(8px);
+    }
+    .nav-inner { max-width: 1140px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+    .nav-logo { font-size: 1.25rem; font-weight: 700; color: var(--white); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-pill {
+      padding: 6px 18px; border-radius: 30px;
+      background: rgba(245,166,35,0.15); border: 1px solid rgba(245,166,35,0.4);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, #060b1e 0%, #0a1530 50%, #07101f 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 30% 50%, rgba(0,120,212,0.2) 0%, transparent 65%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; opacity: 0.035;
+      background-image: linear-gradient(var(--accent) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--accent) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1140px; margin: 0 auto; padding: 80px 24px;
+      display: flex; gap: 64px; flex-wrap: wrap; align-items: center;
+    }
+    .hero-text { flex: 1.2; min-width: 300px; }
+    .hero-qr { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .expo-badge {
+      display: inline-block; padding: 7px 18px; border-radius: 40px;
+      background: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.45);
+      font-size: 0.72rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold);
+      font-weight: 700; margin-bottom: 20px;
+    }
+    .hero-text h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 900; color: var(--white); line-height: 1.08; margin-bottom: 10px;
+    }
+    .hero-text h1 span { color: var(--accent); }
+    .hero-text .sub { font-size: 1.1rem; color: var(--muted); margin-bottom: 32px; max-width: 540px; }
+
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 13px 30px; border-radius: 4px; font-weight: 700; font-size: 0.88rem; text-decoration: none; transition: all 0.2s; }
+    .btn-primary { background: var(--accent2); color: #fff; border: 2px solid var(--accent2); }
+    .btn-primary:hover { background: var(--accent); border-color: var(--accent); color: var(--navy); }
+    .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+    .btn-outline:hover { background: var(--accent); color: var(--navy); }
+
+    /* QR BOX */
+    .qr-box {
+      background: #fff; border-radius: 12px; padding: 20px;
+      box-shadow: 0 0 40px rgba(0,200,255,0.25);
+    }
+    #qrcode canvas, #qrcode img { display: block; }
+    .qr-label { text-align: center; font-size: 0.75rem; color: var(--muted); margin-top: 8px; letter-spacing: 0.5px; }
+    .qr-url { text-align: center; font-size: 0.7rem; color: var(--accent); font-family: monospace; margin-top: 2px; }
+
+    /* SECTIONS */
+    section { padding: 72px 24px; }
+    .section-inner { max-width: 1140px; margin: 0 auto; }
+    .section-label { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
+    .section-title { font-size: clamp(1.5rem, 2.8vw, 2.2rem); font-weight: 800; color: var(--white); margin-bottom: 10px; }
+    .section-sub { font-size: 0.95rem; color: var(--muted); max-width: 600px; }
+    .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; margin: 14px 0 28px; }
+
+    /* WHO WE ARE */
+    .who { background: var(--navy2); }
+    .who-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 16px; }
+    .who-stat {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 28px 24px;
+      border-top: 3px solid var(--accent2);
+    }
+    .who-stat h3 { font-size: 1.6rem; font-weight: 900; color: var(--accent); margin-bottom: 6px; }
+    .who-stat p { font-size: 0.88rem; color: var(--muted); }
+
+    /* STRATEGIC ECOSYSTEM */
+    .ecosystem { background: var(--navy); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .eco-partners { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 8px; }
+    .eco-partner {
+      flex: 1; min-width: 260px;
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 32px;
+      position: relative; overflow: hidden;
+    }
+    .eco-partner::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .eco-partner h3 { font-size: 1.2rem; font-weight: 800; color: var(--white); margin-bottom: 6px; }
+    .eco-partner .role { font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    .eco-partner p { font-size: 0.88rem; color: var(--muted); margin-bottom: 16px; }
+    .eco-partner a { color: var(--accent); font-size: 0.82rem; text-decoration: none; font-weight: 600; }
+    .eco-partner a:hover { text-decoration: underline; }
+
+    /* CAPABILITIES */
+    .capabilities { background: var(--navy2); }
+    .cap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+    .cap-item {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 24px 20px 24px 24px; border-left: 3px solid var(--accent2);
+      transition: border-left-color 0.2s, transform 0.2s;
+    }
+    .cap-item:hover { border-left-color: var(--accent); transform: translateY(-2px); }
+    .cap-icon { font-size: 1.5rem; margin-bottom: 10px; }
+    .cap-item h4 { font-size: 0.88rem; font-weight: 700; color: var(--white); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .cap-item p { font-size: 0.82rem; color: var(--muted); }
+
+    /* PARTNER SPOTLIGHT */
+    .spotlight { background: var(--navy); }
+    .spotlight-card {
+      background: var(--card-bg); border: 1px solid rgba(0,200,255,0.3); border-radius: 10px; padding: 40px;
+      position: relative; overflow: hidden;
+    }
+    .spotlight-card::before {
+      content: 'PARTNER SPOTLIGHT';
+      position: absolute; top: 20px; right: 20px;
+      font-size: 0.65rem; letter-spacing: 3px; color: var(--gold);
+      font-weight: 700; opacity: 0.7;
+    }
+    .spotlight-card h3 { font-size: 1.5rem; font-weight: 800; color: var(--white); margin-bottom: 6px; }
+    .spotlight-card .s-role { font-size: 0.8rem; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; }
+    .spotlight-card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 24px; max-width: 640px; }
+    .spotlight-caps { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+    .s-tag {
+      padding: 6px 16px; border-radius: 20px; font-size: 0.78rem; font-weight: 600;
+      border: 1px solid var(--border); color: var(--text); background: rgba(0,200,255,0.06);
+      transition: border-color 0.2s;
+    }
+    .s-tag:hover { border-color: var(--accent); color: var(--accent); }
+    .disclaimer {
+      padding: 14px 18px; background: rgba(0,200,255,0.05);
+      border: 1px solid rgba(0,200,255,0.2); border-left: 3px solid var(--accent);
+      border-radius: 4px; font-size: 0.8rem; color: var(--muted);
+    }
+    .disclaimer strong { color: var(--accent); }
+
+    /* CONTACT */
+    .contact { background: linear-gradient(135deg, #0d1830 0%, #091222 100%); border-top: 1px solid var(--border); }
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-top: 12px; }
+    .contact-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 28px 24px;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .contact-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .contact-card h4 { font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .contact-card a { color: var(--text); text-decoration: none; font-size: 0.95rem; font-weight: 600; display: block; }
+    .contact-card a:hover { color: var(--accent); }
+    .contact-card p { font-size: 0.85rem; color: var(--muted); }
+
+    /* FOOTER */
+    footer { background: #060a1a; border-top: 1px solid var(--border); padding: 28px 24px; }
+    .footer-bottom { max-width: 1140px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; }
+    .footer-bottom p { color: var(--muted); font-size: 0.8rem; }
+    .footer-bottom a { color: var(--accent); text-decoration: none; font-size: 0.8rem; }
+
+    @media print {
+      nav, .hero-ctas { display: none; }
+      .hero { min-height: auto; padding: 32px 0; }
+      section { padding: 40px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Hora <span>Technologies</span></a>
+    <div class="nav-pill">🏛 Homeland Security Expo 2026</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="expo-badge">🏛 Homeland Security Expo · 2026</div>
+      <h1>Hora<br><span>Technologies</span></h1>
+      <p class="sub">Enterprise-grade Cybersecurity, AI &amp; Critical Infrastructure solutions — backed by a world-class technology ecosystem.</p>
+      <div class="hero-ctas">
+        <a href="#who-we-are" class="btn btn-primary">Our Story</a>
+        <a href="#contact" class="btn btn-outline">Contact Us</a>
+      </div>
+    </div>
+    <div class="hero-qr">
+      <div class="qr-box">
+        <div id="qrcode"></div>
+      </div>
+      <div class="qr-label">Scan to visit this page</div>
+      <div class="qr-url">hora-tech.com/homeland-security-expo-2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHO WE ARE -->
+<section class="who" id="who-we-are">
+  <div class="section-inner">
+    <div class="section-label">Who We Are</div>
+    <h2 class="section-title">Hora Technologies</h2>
+    <div class="divider"></div>
+    <p class="section-sub">Based in New Delhi, India, Hora Technologies is a trusted partner in digital transformation — delivering enterprise-grade IT solutions that drive business growth and operational excellence across cybersecurity, AI, cloud, and critical infrastructure.</p>
+    <div class="who-grid" style="margin-top: 36px;">
+      <div class="who-stat">
+        <h3>AI + Cloud</h3>
+        <p>Generative AI, agentic systems, predictive analytics, and seamless cloud migration.</p>
+      </div>
+      <div class="who-stat">
+        <h3>Cyber</h3>
+        <p>End-to-end cybersecurity — threat detection, SIEM/XDR, CMMC readiness, and compliance.</p>
+      </div>
+      <div class="who-stat">
+        <h3>Global</h3>
+        <p>Serving clients across defence, government, manufacturing, and critical infrastructure sectors worldwide.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGIC ECOSYSTEM -->
+<section class="ecosystem" id="ecosystem">
+  <div class="section-inner">
+    <div class="section-label">Strategic Ecosystem</div>
+    <h2 class="section-title">Trusted Technology &amp; Delivery Partners</h2>
+    <div class="divider"></div>
+    <p class="section-sub" style="margin-bottom: 36px;">HORA works alongside established cybersecurity and technology organisations to deliver comprehensive, mission-ready solutions.</p>
+    <div class="eco-partners">
+      <div class="eco-partner">
+        <h3>Premier Federal</h3>
+        <div class="role">Strategic Cybersecurity &amp; Compliance · USA</div>
+        <p>US-based cybersecurity and compliance specialists with deep expertise in federal sector, CMMC, security operations, and risk management.</p>
+        <a href="https://www.premfed.com" target="_blank" rel="noopener">premfed.com →</a>
+      </div>
+      <div class="eco-partner">
+        <h3>Trend Micro</h3>
+        <div class="role">Cybersecurity Platform Partner · Global</div>
+        <p>Global cybersecurity leader — Trend Vision One, XDR, MDR, cloud security, and attack surface risk management for enterprise environments.</p>
+        <a href="https://www.trendmicro.com" target="_blank" rel="noopener">trendmicro.com →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED CAPABILITIES -->
+<section class="capabilities" id="capabilities">
+  <div class="section-inner">
+    <div class="section-label">Featured Capabilities</div>
+    <h2 class="section-title">What We Deliver</h2>
+    <div class="divider"></div>
+    <div class="cap-grid">
+      <div class="cap-item">
+        <div class="cap-icon">🔭</div>
+        <h4>Trend Vision One</h4>
+        <p>Unified cybersecurity platform for cross-layer detection, threat intelligence, and risk management.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">🔒</div>
+        <h4>Cybersecurity Services</h4>
+        <p>Comprehensive threat detection, vulnerability management, and incident response capabilities.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">🛡️</div>
+        <h4>CMMC Readiness</h4>
+        <p>Advisory and implementation for Cybersecurity Maturity Model Certification — DoD supply chain compliance.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">🏗️</div>
+        <h4>Security Operations</h4>
+        <p>Managed SOC, SIEM/XDR deployment, and continuous monitoring for federal and enterprise environments.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">🤖</div>
+        <h4>AI &amp; Automation</h4>
+        <p>Generative and agentic AI platforms, predictive analytics, and intelligent process automation.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">⚡</div>
+        <h4>Critical Infrastructure Security</h4>
+        <p>OT/IT convergence security for energy, utilities, manufacturing, and public sector infrastructure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER SPOTLIGHT -->
+<section class="spotlight" id="partner-spotlight">
+  <div class="section-inner">
+    <div class="section-label">Partner Spotlight</div>
+    <h2 class="section-title">Premier Federal</h2>
+    <div class="divider"></div>
+    <div class="spotlight-card">
+      <h3>Premier Federal (USA)</h3>
+      <div class="s-role">Strategic Cybersecurity &amp; Compliance Partner · premfed.com</div>
+      <p>Premier Federal is a US-based cybersecurity firm providing mission-critical compliance, security operations, and risk management services to federal agencies and government contractors. As a key partner in the HORA ecosystem, Premier Federal's credentials and capabilities directly enhance the solutions delivered to our joint clients.</p>
+      <div class="spotlight-caps">
+        <span class="s-tag">CMMC Readiness &amp; Advisory</span>
+        <span class="s-tag">Security Operations Centre</span>
+        <span class="s-tag">SIEM / XDR</span>
+        <span class="s-tag">Risk &amp; Compliance</span>
+        <span class="s-tag">Federal Sector Experience</span>
+        <span class="s-tag">NIST Framework</span>
+        <span class="s-tag">Zero Trust Architecture</span>
+        <span class="s-tag">Incident Response</span>
+      </div>
+      <div class="disclaimer">
+        <strong>Credential Note:</strong> All certifications, security clearances, and credentials are held by <strong>Premier Federal</strong> and are not credentials of Hora Technologies. HORA partners with Premier Federal to bring these capabilities to clients.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="divider"></div>
+    <p class="section-sub" style="margin-bottom: 32px;">Ready to learn how Hora Technologies and our ecosystem can support your mission? Reach out today.</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <h4>Email</h4>
+          <a href="mailto:info@hora-tech.com">info@hora-tech.com</a>
+          <p>We respond within one business day</p>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">🌐</div>
+        <div>
+          <h4>Website</h4>
+          <a href="https://www.hora-tech.com" target="_blank">www.hora-tech.com</a>
+          <p>Full services and capabilities overview</p>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <div>
+          <h4>Location</h4>
+          <a href="#">New Delhi – 110062, India</a>
+          <p>Serving clients globally</p>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">🤝</div>
+        <div>
+          <h4>Partners</h4>
+          <a href="partners.html">View Partner Ecosystem</a>
+          <p>Premier Federal · Trend Micro</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    <p>© 2026 Hora Technologies · <a href="mailto:info@hora-tech.com">info@hora-tech.com</a> · New Delhi, India</p>
+    <a href="index.html">← Main Website</a>
+  </div>
+</footer>
+
+<!-- GENERATE QR CODE -->
+<script>
+  new QRCode(document.getElementById("qrcode"), {
+    text: "https://www.hora-tech.com/homeland-security-expo-2026",
+    width: 200,
+    height: 200,
+    colorDark: "#000000",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+</script>
+
+</body>
+</html>

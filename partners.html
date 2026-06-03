@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partners – Hora Technologies</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a0f2c;
+      --navy2: #111936;
+      --blue: #1a3a6e;
+      --accent: #00c8ff;
+      --accent2: #0078d4;
+      --text: #e8eaf0;
+      --muted: #8892a4;
+      --white: #ffffff;
+      --card-bg: #131d3b;
+      --border: rgba(0,200,255,0.15);
+      --green: #00e5a0;
+    }
+
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--navy); color: var(--text); line-height: 1.6; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,15,44,0.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .nav-inner {
+      max-width: 1140px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 64px;
+    }
+    .nav-logo { font-size: 1.25rem; font-weight: 700; color: var(--white); text-decoration: none; letter-spacing: 0.5px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    /* PAGE HERO */
+    .page-hero {
+      background: linear-gradient(135deg, #0a0f2c 0%, #0d1a3a 60%, #0a1628 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 72px 24px 56px;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 20% 50%, rgba(0,120,212,0.14) 0%, transparent 70%);
+    }
+    .page-hero-inner { max-width: 1140px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-eyebrow { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--white); margin-bottom: 14px; }
+    .page-hero p { font-size: 1.05rem; color: var(--muted); max-width: 580px; }
+
+    /* COMMON */
+    section { padding: 72px 24px; }
+    .section-inner { max-width: 1140px; margin: 0 auto; }
+    .section-label { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
+    .section-title { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 800; color: var(--white); margin-bottom: 10px; }
+    .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; margin: 14px 0 28px; }
+    .btn { display: inline-block; padding: 12px 28px; border-radius: 4px; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.5px; text-decoration: none; transition: all 0.2s; }
+    .btn-primary { background: var(--accent2); color: #fff; border: 2px solid var(--accent2); }
+    .btn-primary:hover { background: var(--accent); border-color: var(--accent); color: var(--navy); }
+    .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+    .btn-outline:hover { background: var(--accent); color: var(--navy); }
+
+    /* ECOSYSTEM INTRO */
+    .ecosystem-intro { background: var(--navy); }
+    .eco-cards { display: flex; gap: 24px; flex-wrap: wrap; }
+    .eco-summary {
+      flex: 1; min-width: 280px;
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 32px; display: flex; gap: 16px; align-items: flex-start;
+    }
+    .eco-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0; margin-top: 6px;
+    }
+    .eco-summary h3 { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .eco-summary p { font-size: 0.9rem; color: var(--muted); }
+
+    /* PARTNER SECTION */
+    .partner-section { border-top: 1px solid var(--border); }
+    .partner-section:nth-child(odd) { background: var(--navy2); }
+    .partner-section:nth-child(even) { background: var(--navy); }
+
+    .partner-header {
+      display: flex; flex-wrap: wrap; gap: 24px;
+      align-items: flex-start; margin-bottom: 40px;
+    }
+    .partner-badge {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 24px 36px; text-align: center; min-width: 200px;
+    }
+    .partner-badge .p-name { font-size: 1.6rem; font-weight: 900; color: var(--white); margin-bottom: 4px; }
+    .partner-badge .p-country { font-size: 0.75rem; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; }
+    .partner-badge .p-type { font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
+
+    .partner-info { flex: 1; min-width: 280px; }
+    .partner-info h2 { font-size: 1.4rem; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+    .partner-info .partner-role { font-size: 0.82rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    .partner-info p { color: var(--muted); font-size: 0.95rem; margin-bottom: 20px; }
+
+    .caps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 28px; }
+    .cap-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px;
+      padding: 20px 20px 20px 24px;
+      border-left: 3px solid var(--accent2);
+      transition: border-color 0.2s;
+    }
+    .cap-card:hover { border-left-color: var(--accent); }
+    .cap-card h4 { font-size: 0.85rem; font-weight: 700; color: var(--white); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .cap-card p { font-size: 0.82rem; color: var(--muted); }
+
+    .disclaimer {
+      margin-top: 28px; padding: 16px 20px;
+      background: rgba(0,200,255,0.05); border: 1px solid rgba(0,200,255,0.2);
+      border-radius: 6px; border-left: 3px solid var(--accent);
+      font-size: 0.82rem; color: var(--muted);
+    }
+    .disclaimer strong { color: var(--accent); }
+
+    .solutions-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .solution-tag {
+      padding: 6px 16px; border-radius: 20px;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px;
+      border: 1px solid var(--border); color: var(--text);
+      background: var(--card-bg); transition: border-color 0.2s;
+    }
+    .solution-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    .partner-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 20px; color: var(--accent); text-decoration: none;
+      font-size: 0.88rem; font-weight: 600; border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .partner-link:hover { border-bottom-color: var(--accent); }
+
+    /* FOOTER */
+    footer { background: #060a1a; border-top: 1px solid var(--border); padding: 40px 24px 28px; }
+    .footer-bottom { max-width: 1140px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; }
+    .footer-bottom p { color: var(--muted); font-size: 0.8rem; }
+    .footer-bottom a { color: var(--accent); text-decoration: none; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Hora <span>Technologies</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="why-choose-us.html">Why Choose Us</a></li>
+      <li><a href="partners.html" class="active">Partners</a></li>
+      <li><a href="contact.html">Get In Touch</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">Strategic Alliances</div>
+    <h1>Global Technology &amp; Delivery Ecosystem</h1>
+    <p>Hora Technologies works with world-class technology and cybersecurity partners to deliver enterprise-grade solutions across AI, cloud, compliance, and critical infrastructure.</p>
+  </div>
+</div>
+
+<!-- ECOSYSTEM INTRO -->
+<section class="ecosystem-intro">
+  <div class="section-inner">
+    <div class="section-label">Our Partners</div>
+    <h2 class="section-title">Trusted by Industry Leaders</h2>
+    <div class="divider"></div>
+    <div class="eco-cards">
+      <div class="eco-summary">
+        <div class="eco-dot"></div>
+        <div>
+          <h3>Premier Federal</h3>
+          <p>Strategic cybersecurity &amp; compliance partner with deep expertise in CMMC, security operations, and federal sector engagements. Certifications and credentials belong to Premier Federal.</p>
+        </div>
+      </div>
+      <div class="eco-summary">
+        <div class="eco-dot"></div>
+        <div>
+          <h3>Trend Micro</h3>
+          <p>Global cybersecurity platform partner — delivering Trend Vision One, XDR, cloud security, MDR, and attack surface risk management across enterprise environments.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREMIER FEDERAL -->
+<section class="partner-section">
+  <div class="section-inner">
+    <div class="partner-header">
+      <div class="partner-badge">
+        <div class="p-name">Premier<br>Federal</div>
+        <div class="p-country">🇺🇸 USA</div>
+        <div class="p-type">premfed.com</div>
+      </div>
+      <div class="partner-info">
+        <div class="partner-role">Strategic Cybersecurity &amp; Compliance Partner</div>
+        <h2>Premier Federal</h2>
+        <p>Premier Federal is a US-based cybersecurity and compliance firm specialising in federal sector engagements. As a strategic partner in the HORA ecosystem, Premier Federal brings deep operational expertise in CMMC readiness, security operations, and risk management to support critical infrastructure and government clients.</p>
+        <a href="https://www.premfed.com" target="_blank" rel="noopener" class="partner-link">Visit premfed.com →</a>
+      </div>
+    </div>
+
+    <div class="caps-grid">
+      <div class="cap-card">
+        <h4>CMMC Readiness</h4>
+        <p>Advisory and implementation support for Cybersecurity Maturity Model Certification across DoD supply chains.</p>
+      </div>
+      <div class="cap-card">
+        <h4>Security Operations</h4>
+        <p>Managed SOC capabilities, incident response, and continuous monitoring for federal and enterprise environments.</p>
+      </div>
+      <div class="cap-card">
+        <h4>SIEM / XDR</h4>
+        <p>Deployment and management of Security Information and Event Management and Extended Detection &amp; Response platforms.</p>
+      </div>
+      <div class="cap-card">
+        <h4>Federal Sector Experience</h4>
+        <p>Extensive background working with government agencies, defense contractors, and regulated industries.</p>
+      </div>
+      <div class="cap-card">
+        <h4>Risk &amp; Compliance</h4>
+        <p>Comprehensive risk assessment, compliance gap analysis, and remediation roadmaps aligned with NIST, CMMC, and FedRAMP frameworks.</p>
+      </div>
+      <div class="cap-card">
+        <h4>Cybersecurity Advisory</h4>
+        <p>Strategic guidance on security architecture, zero-trust frameworks, and enterprise-wide cyber resilience programmes.</p>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <strong>Important Note:</strong> All certifications, credentials, clearances, and qualifications listed above belong exclusively to <strong>Premier Federal</strong> and are not held by Hora Technologies. HORA partners with Premier Federal to deliver these capabilities to clients.
+    </div>
+  </div>
+</section>
+
+<!-- TREND MICRO -->
+<section class="partner-section">
+  <div class="section-inner">
+    <div class="partner-header">
+      <div class="partner-badge">
+        <div class="p-name">Trend<br>Micro</div>
+        <div class="p-country">🌐 Global</div>
+        <div class="p-type">trendmicro.com</div>
+      </div>
+      <div class="partner-info">
+        <div class="partner-role">Cybersecurity Platform Partner &amp; Strategic Industrial Technology Partner</div>
+        <h2>Trend Micro</h2>
+        <p>Trend Micro is a global leader in enterprise cybersecurity. Through this partnership, Hora Technologies delivers Trend Micro's industry-leading platforms — including Trend Vision One, XDR, and Attack Surface Risk Management — to clients across manufacturing, industrial engineering, and critical infrastructure sectors.</p>
+        <a href="https://www.trendmicro.com" target="_blank" rel="noopener" class="partner-link">Visit trendmicro.com →</a>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-bottom: 12px;">Featured Solutions</div>
+    <div class="solutions-list">
+      <span class="solution-tag">Trend Vision One</span>
+      <span class="solution-tag">XDR – Extended Detection &amp; Response</span>
+      <span class="solution-tag">Attack Surface Risk Management</span>
+      <span class="solution-tag">CMMC Compliance</span>
+      <span class="solution-tag">Cloud Security</span>
+      <span class="solution-tag">MDR – Managed Detection &amp; Response</span>
+    </div>
+
+    <div class="caps-grid" style="margin-top: 32px;">
+      <div class="cap-card">
+        <h4>Manufacturing</h4>
+        <p>OT/IT convergence security for production environments — protecting industrial control systems and connected factory floors.</p>
+      </div>
+      <div class="cap-card">
+        <h4>Industrial Engineering</h4>
+        <p>Securing SCADA systems, PLCs, and industrial networks against cyber threats targeting critical operational technology.</p>
+      </div>
+      <div class="cap-card">
+        <h4>Critical Infrastructure</h4>
+        <p>End-to-end cybersecurity for energy, utilities, transport, and public sector infrastructure — resilient against advanced persistent threats.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background: linear-gradient(90deg, #0078d4 0%, #005fa3 100%); padding: 56px 24px; text-align: center;">
+  <h2 style="font-size: 1.9rem; font-weight: 800; color: #fff; margin-bottom: 12px;">Interested in Our Ecosystem?</h2>
+  <p style="color: rgba(255,255,255,0.8); margin-bottom: 28px; font-size: 1rem;">Learn how HORA's partner network can support your cybersecurity and technology initiatives.</p>
+  <a href="contact.html" class="btn btn-primary" style="background:#fff; color:#0078d4; border-color:#fff;">Get In Touch</a>
+  <a href="homeland-security-expo-2026.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.6); color:#fff; margin-left: 14px;">Homeland Security Expo 2026 →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    <p>© 2026 Hora Technologies. All rights reserved. · <a href="mailto:info@hora-tech.com">info@hora-tech.com</a></p>
+    <a href="index.html">← Back to Home</a>
+  </div>
+</footer>
+
+</body>
+</html>

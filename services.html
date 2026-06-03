@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services – Hora Technologies</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0a0f2c; --navy2: #111936; --accent: #00c8ff; --accent2: #0078d4;
+      --text: #e8eaf0; --muted: #8892a4; --white: #ffffff;
+      --card-bg: #131d3b; --border: rgba(0,200,255,0.15);
+    }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--navy); color: var(--text); line-height: 1.6; }
+
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,15,44,0.97); border-bottom: 1px solid var(--border); backdrop-filter: blur(8px); }
+    .nav-inner { max-width: 1140px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+    .nav-logo { font-size: 1.25rem; font-weight: 700; color: var(--white); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    .page-hero { background: linear-gradient(135deg, #0a0f2c 0%, #0d1a3a 60%, #0a1628 100%); border-bottom: 1px solid var(--border); padding: 80px 24px 64px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 15% 50%, rgba(0,120,212,0.15) 0%, transparent 70%); }
+    .page-hero-inner { max-width: 1140px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-eyebrow { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; color: var(--white); margin-bottom: 14px; }
+    .page-hero p { font-size: 1.1rem; color: var(--muted); max-width: 640px; }
+
+    section { padding: 72px 24px; }
+    .section-inner { max-width: 1140px; margin: 0 auto; }
+    .section-label { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
+    .section-title { font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 800; color: var(--white); margin-bottom: 10px; }
+    .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; margin: 14px 0 40px; }
+    .btn { display: inline-block; padding: 13px 30px; border-radius: 4px; font-weight: 700; font-size: 0.88rem; text-decoration: none; transition: all 0.2s; }
+    .btn-primary { background: var(--accent2); color: #fff; border: 2px solid var(--accent2); }
+    .btn-primary:hover { background: var(--accent); border-color: var(--accent); color: var(--navy); }
+    .btn-white { background: #fff; color: var(--accent2); border: 2px solid #fff; font-weight: 700; }
+    .btn-white:hover { background: transparent; color: #fff; }
+    .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+    .btn-outline:hover { background: var(--accent); color: var(--navy); }
+
+    /* SERVICE CARDS */
+    .services-main { background: var(--navy2); }
+    .service-block {
+      display: grid; grid-template-columns: 80px 1fr; gap: 28px;
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 36px 32px; margin-bottom: 20px;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+    .service-block:hover { border-color: var(--accent); transform: translateX(4px); }
+    .service-block:last-child { margin-bottom: 0; }
+    .svc-icon {
+      width: 72px; height: 72px; border-radius: 14px;
+      background: rgba(0,200,255,0.08); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; flex-shrink: 0;
+    }
+    .svc-content h2 { font-size: 1.25rem; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+    .svc-content .svc-tag { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); background: rgba(0,200,255,0.08); border: 1px solid var(--border); margin-bottom: 12px; }
+    .svc-content p { font-size: 0.95rem; color: var(--muted); margin-bottom: 16px; line-height: 1.75; }
+    .svc-bullets { display: flex; flex-wrap: wrap; gap: 8px; }
+    .svc-bullet { padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; border: 1px solid var(--border); color: var(--text); background: rgba(0,120,212,0.07); }
+    @media (max-width: 600px) { .service-block { grid-template-columns: 1fr; } }
+
+    /* APPROACH */
+    .approach { background: var(--navy); }
+    .approach-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+    .step { background: var(--card-bg); padding: 28px 24px; text-align: center; }
+    .step-num { font-size: 2.2rem; font-weight: 900; color: var(--accent2); margin-bottom: 8px; }
+    .step h4 { font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .step p { font-size: 0.82rem; color: var(--muted); }
+
+    /* TECH PARTNERS */
+    .tech-partners { background: var(--navy2); border-top: 1px solid var(--border); }
+    .partner-chips { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+    .partner-chip {
+      padding: 12px 24px; border-radius: 6px;
+      background: var(--card-bg); border: 1px solid var(--border);
+      font-size: 0.9rem; font-weight: 700; color: var(--white);
+      text-decoration: none; transition: border-color 0.2s, color 0.2s;
+    }
+    .partner-chip:hover { border-color: var(--accent); color: var(--accent); }
+    .partner-chip span { font-size: 0.75rem; color: var(--muted); display: block; font-weight: 400; margin-top: 2px; }
+
+    .cta-strip { background: linear-gradient(90deg, var(--accent2) 0%, #005fa3 100%); padding: 56px 24px; text-align: center; }
+    .cta-strip h2 { font-size: 1.9rem; font-weight: 800; color: #fff; margin-bottom: 12px; }
+    .cta-strip p { color: rgba(255,255,255,0.8); margin-bottom: 28px; }
+
+    footer { background: #060a1a; border-top: 1px solid var(--border); padding: 28px 24px; }
+    .footer-bottom { max-width: 1140px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; }
+    .footer-bottom p { color: var(--muted); font-size: 0.8rem; }
+    .footer-bottom a { color: var(--accent); text-decoration: none; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Hora <span>Technologies</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="why-choose-us.html">Why Choose Us</a></li>
+      <li><a href="partners.html">Partners</a></li>
+      <li><a href="contact.html">Get In Touch</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">What We Do</div>
+    <h1>Services</h1>
+    <p>We offer a complete suite of technology services designed to accelerate your digital journey and maximise business value.</p>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-main">
+  <div class="section-inner">
+    <div class="section-label">Our Capabilities</div>
+    <h2 class="section-title">Enterprise Technology Services</h2>
+    <div class="divider"></div>
+
+    <div class="service-block">
+      <div class="svc-icon">🤖</div>
+      <div class="svc-content">
+        <span class="svc-tag">AI / ML &amp; BI</span>
+        <h2>Artificial Intelligence, Machine Learning &amp; Business Intelligence</h2>
+        <p>Harness the power of advanced AI to automate processes, enhance customer experiences, and unlock new revenue streams. We deploy generative and agentic AI models alongside predictive analytics platforms that transform raw data into actionable intelligence — helping you forecast trends and make confident, data-driven decisions.</p>
+        <div class="svc-bullets">
+          <span class="svc-bullet">Generative AI</span>
+          <span class="svc-bullet">Agentic AI Systems</span>
+          <span class="svc-bullet">Predictive Analytics</span>
+          <span class="svc-bullet">Business Intelligence Dashboards</span>
+          <span class="svc-bullet">Data Engineering</span>
+          <span class="svc-bullet">AI Model Integration</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-block">
+      <div class="svc-icon">🔒</div>
+      <div class="svc-content">
+        <span class="svc-tag">Cyber Security</span>
+        <h2>Cybersecurity</h2>
+        <p>Protect your digital assets with comprehensive, defence-in-depth security solutions. From threat detection and vulnerability assessment to compliance management and incident response — we secure your infrastructure against modern cyber threats. Powered by our partnership with Trend Micro and Premier Federal's compliance expertise.</p>
+        <div class="svc-bullets">
+          <span class="svc-bullet">Threat Detection &amp; Response</span>
+          <span class="svc-bullet">SIEM / XDR</span>
+          <span class="svc-bullet">Vulnerability Assessment</span>
+          <span class="svc-bullet">CMMC Readiness</span>
+          <span class="svc-bullet">Compliance Management</span>
+          <span class="svc-bullet">Trend Vision One</span>
+          <span class="svc-bullet">Attack Surface Risk Management</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-block">
+      <div class="svc-icon">☁️</div>
+      <div class="svc-content">
+        <span class="svc-tag">Cloud &amp; Data Migration</span>
+        <h2>Cloud &amp; Data Migration</h2>
+        <p>Seamlessly transition your infrastructure to the cloud with zero downtime. We handle everything from initial assessment and planning through execution and post-migration optimisation. Whether you're moving to public, private, or hybrid cloud environments, our proven methodology minimises risk and accelerates time-to-value.</p>
+        <div class="svc-bullets">
+          <span class="svc-bullet">Cloud Strategy &amp; Assessment</span>
+          <span class="svc-bullet">Zero-Downtime Migration</span>
+          <span class="svc-bullet">Data Migration &amp; Validation</span>
+          <span class="svc-bullet">Hybrid Cloud Architecture</span>
+          <span class="svc-bullet">Cloud Cost Optimisation</span>
+          <span class="svc-bullet">Post-Migration Support</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-block">
+      <div class="svc-icon">🏗️</div>
+      <div class="svc-content">
+        <span class="svc-tag">Unified Infrastructure</span>
+        <h2>Unified Infrastructure</h2>
+        <p>Consolidate your IT environment with integrated infrastructure solutions that improve efficiency, reduce costs, and enhance scalability. We design and implement cohesive infrastructure architectures — from networking and compute to storage and operations — that support your business today and scale with you tomorrow.</p>
+        <div class="svc-bullets">
+          <span class="svc-bullet">Infrastructure Assessment</span>
+          <span class="svc-bullet">Network Architecture</span>
+          <span class="svc-bullet">IT Consolidation</span>
+          <span class="svc-bullet">Scalability Planning</span>
+          <span class="svc-bullet">Infrastructure Monitoring</span>
+          <span class="svc-bullet">24/7 Managed Support</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="approach">
+  <div class="section-inner">
+    <div class="section-label">How We Work</div>
+    <h2 class="section-title">Our Delivery Approach</h2>
+    <div class="divider"></div>
+    <div class="approach-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>Discover</h4>
+        <p>Deep-dive into your environment, goals, and constraints.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4>Design</h4>
+        <p>Architect a tailored solution aligned to your business objectives.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>Deliver</h4>
+        <p>Execute with precision — on time, on budget, with zero surprises.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h4>Optimise</h4>
+        <p>Continuous improvement and 24/7 support post-deployment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH PARTNERS -->
+<section class="tech-partners">
+  <div class="section-inner">
+    <div class="section-label">Technology Ecosystem</div>
+    <h2 class="section-title">Backed by World-Class Partners</h2>
+    <div class="divider"></div>
+    <div class="partner-chips">
+      <a href="partners.html" class="partner-chip">Premier Federal <span>Strategic Cybersecurity &amp; Compliance · USA</span></a>
+      <a href="partners.html" class="partner-chip">Trend Micro <span>Cybersecurity Platform Partner</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <h2>Ready to Get Started?</h2>
+  <p>Tell us about your technology challenge — we'll design the right solution.</p>
+  <a href="contact.html" class="btn btn-white">Get In Touch</a>
+  <a href="why-choose-us.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.6);color:#fff;margin-left:14px;">Why Choose Us →</a>
+</section>
+
+<footer>
+  <div class="footer-bottom">
+    <p>© 2026 Hora Technologies · <a href="mailto:info@hora-tech.com">info@hora-tech.com</a> · New Delhi, India</p>
+    <a href="index.html">← Back to Home</a>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get In Touch – Hora Technologies</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0a0f2c; --navy2: #111936; --accent: #00c8ff; --accent2: #0078d4;
+      --text: #e8eaf0; --muted: #8892a4; --white: #ffffff;
+      --card-bg: #131d3b; --border: rgba(0,200,255,0.15);
+      --green: #00e5a0; --error: #ff5a5a;
+    }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--navy); color: var(--text); line-height: 1.6; }
+
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,15,44,0.97); border-bottom: 1px solid var(--border); backdrop-filter: blur(8px); }
+    .nav-inner { max-width: 1140px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+    .nav-logo { font-size: 1.25rem; font-weight: 700; color: var(--white); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    .page-hero { background: linear-gradient(135deg, #0a0f2c 0%, #0d1a3a 60%, #0a1628 100%); border-bottom: 1px solid var(--border); padding: 80px 24px 64px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 85% 50%, rgba(0,120,212,0.15) 0%, transparent 70%); }
+    .page-hero-inner { max-width: 1140px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-eyebrow { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; color: var(--white); margin-bottom: 14px; }
+    .page-hero p { font-size: 1.1rem; color: var(--muted); max-width: 600px; }
+
+    section { padding: 72px 24px; }
+    .section-inner { max-width: 1140px; margin: 0 auto; }
+    .section-label { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
+    .section-title { font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 800; color: var(--white); margin-bottom: 10px; }
+    .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; margin: 14px 0 40px; }
+
+    /* CONTACT LAYOUT */
+    .contact-main { background: var(--navy2); }
+    .contact-layout {
+      display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; align-items: start;
+    }
+    @media (max-width: 768px) { .contact-layout { grid-template-columns: 1fr; } }
+
+    /* INFO COLUMN */
+    .contact-info-col {}
+    .info-block {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 28px; margin-bottom: 16px;
+      display: flex; gap: 16px; align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .info-block:hover { border-color: rgba(0,200,255,0.4); }
+    .info-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+    .info-block h4 { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 6px; }
+    .info-block a { color: var(--text); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: block; }
+    .info-block a:hover { color: var(--accent); }
+    .info-block p { font-size: 0.85rem; color: var(--muted); }
+
+    .partner-note {
+      background: rgba(0,200,255,0.05); border: 1px solid var(--border); border-radius: 8px;
+      padding: 20px; margin-top: 8px;
+    }
+    .partner-note h4 { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 8px; }
+    .partner-note p { font-size: 0.82rem; color: var(--muted); }
+    .partner-note a { color: var(--accent); text-decoration: none; }
+    .partner-note a:hover { text-decoration: underline; }
+
+    /* FORM */
+    .form-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 40px 36px;
+    }
+    .form-card h3 { font-size: 1.2rem; font-weight: 800; color: var(--white); margin-bottom: 6px; }
+    .form-card .form-sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 28px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 540px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+    }
+    .form-group label .req { color: var(--accent); margin-left: 2px; }
+    .form-group label .opt { color: var(--muted); font-weight: 400; font-size: 0.72rem; text-transform: none; letter-spacing: 0; margin-left: 4px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 12px 16px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(0,200,255,0.2); border-radius: 4px;
+      color: var(--text); font-size: 0.95rem; font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,200,255,0.12);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(136,146,164,0.6); }
+    .form-group select option { background: var(--navy2); color: var(--text); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    .form-submit {
+      width: 100%; padding: 15px; border-radius: 4px; border: none;
+      background: var(--accent2); color: #fff; font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.5px;
+    }
+    .form-submit:hover { background: var(--accent); color: var(--navy); }
+    .form-submit:active { transform: scale(0.99); }
+
+    .form-privacy {
+      margin-top: 14px; font-size: 0.78rem; color: var(--muted); text-align: center;
+    }
+
+    /* SUCCESS STATE */
+    .success-msg {
+      display: none; text-align: center; padding: 40px 20px;
+    }
+    .success-msg .success-icon { font-size: 3rem; margin-bottom: 16px; }
+    .success-msg h3 { font-size: 1.3rem; font-weight: 700; color: var(--green); margin-bottom: 10px; }
+    .success-msg p { color: var(--muted); }
+
+    footer { background: #060a1a; border-top: 1px solid var(--border); padding: 28px 24px; }
+    .footer-bottom { max-width: 1140px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; }
+    .footer-bottom p { color: var(--muted); font-size: 0.8rem; }
+    .footer-bottom a { color: var(--accent); text-decoration: none; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Hora <span>Technologies</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="why-choose-us.html">Why Choose Us</a></li>
+      <li><a href="partners.html">Partners</a></li>
+      <li><a href="contact.html" class="active">Get In Touch</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">Contact</div>
+    <h1>Get In Touch</h1>
+    <p>Ready to Transform Your Business? We're here to help you navigate your digital transformation journey with confidence and expertise.</p>
+  </div>
+</div>
+
+<section class="contact-main">
+  <div class="section-inner">
+    <div class="section-label">Contact Hora Technologies</div>
+    <h2 class="section-title">Let's Start a Conversation</h2>
+    <div class="divider"></div>
+
+    <div class="contact-layout">
+
+      <!-- INFO COLUMN -->
+      <div class="contact-info-col">
+
+        <div class="info-block">
+          <div class="info-icon">✉️</div>
+          <div>
+            <h4>Email</h4>
+            <a href="mailto:info@hora-tech.com">info@hora-tech.com</a>
+            <p>We respond within one business day</p>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-icon">🌐</div>
+          <div>
+            <h4>Website</h4>
+            <a href="https://www.hora-tech.com" target="_blank">www.hora-tech.com</a>
+            <p>Full company overview and services</p>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-icon">📍</div>
+          <div>
+            <h4>Location</h4>
+            <a href="#">Hora Technologies</a>
+            <p>New Delhi – 110062, India</p>
+          </div>
+        </div>
+
+        <div class="partner-note">
+          <h4>Our Technology Ecosystem</h4>
+          <p>For cybersecurity, CMMC, or federal compliance inquiries, our partner ecosystem includes <a href="https://www.premfed.com" target="_blank">Premier Federal</a> and <a href="https://www.trendmicro.com" target="_blank">Trend Micro</a>. <a href="partners.html">Learn more →</a></p>
+        </div>
+
+      </div>
+
+      <!-- FORM COLUMN -->
+      <div class="form-card" id="form-card">
+
+        <div id="form-content">
+          <h3>Send Us a Message</h3>
+          <p class="form-sub">Fill in your details and we'll be in touch shortly. Fields marked <span style="color:var(--accent)">*</span> are required.</p>
+
+          <form id="contactForm" onsubmit="handleSubmit(event)" novalidate>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name <span class="req">*</span></label>
+                <input type="text" id="firstName" name="firstName" placeholder="First name" required />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name <span class="req">*</span></label>
+                <input type="text" id="lastName" name="lastName" placeholder="Last name" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="title">Title / Role <span class="req">*</span></label>
+                <input type="text" id="title" name="title" placeholder="e.g. CTO, IT Director" required />
+              </div>
+              <div class="form-group">
+                <label for="company">Company Name <span class="req">*</span></label>
+                <input type="text" id="company" name="company" placeholder="Your organisation" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email Address <span class="req">*</span></label>
+                <input type="email" id="email" name="email" placeholder="you@company.com" required />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number <span class="req">*</span></label>
+                <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="address">Address <span class="opt">(optional)</span></label>
+              <input type="text" id="address" name="address" placeholder="Street, City, Country" />
+            </div>
+
+            <div class="form-group">
+              <label for="interest">Area of Interest</label>
+              <select id="interest" name="interest">
+                <option value="">— Select a topic —</option>
+                <option value="ai-ml">AI / ML &amp; Business Intelligence</option>
+                <option value="cybersecurity">Cybersecurity</option>
+                <option value="cloud">Cloud &amp; Data Migration</option>
+                <option value="infrastructure">Unified Infrastructure</option>
+                <option value="cmmc">CMMC Readiness</option>
+                <option value="partnership">Partnership / Ecosystem</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message <span class="req">*</span></label>
+              <textarea id="message" name="message" placeholder="Tell us about your technology challenge or question…" required></textarea>
+            </div>
+
+            <button type="submit" class="form-submit">Send Message →</button>
+            <p class="form-privacy">Your information is kept confidential and will only be used to respond to your enquiry.</p>
+
+          </form>
+        </div>
+
+        <div class="success-msg" id="successMsg">
+          <div class="success-icon">✅</div>
+          <h3>Message Sent!</h3>
+          <p>Thank you for reaching out. A member of the Hora Technologies team will be in touch within one business day.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-bottom">
+    <p>© 2026 Hora Technologies · <a href="mailto:info@hora-tech.com">info@hora-tech.com</a> · New Delhi, India</p>
+    <a href="index.html">← Back to Home</a>
+  </div>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const form = document.getElementById('contactForm');
+    const inputs = form.querySelectorAll('[required]');
+    let valid = true;
+
+    inputs.forEach(inp => {
+      inp.style.borderColor = '';
+      if (!inp.value.trim() || (inp.type === 'email' && !inp.value.includes('@'))) {
+        inp.style.borderColor = 'var(--error)';
+        valid = false;
+      }
+    });
+
+    if (!valid) return;
+
+    // Show success state
+    document.getElementById('form-content').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>

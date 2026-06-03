@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us – Hora Technologies</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0a0f2c; --navy2: #111936; --accent: #00c8ff; --accent2: #0078d4;
+      --text: #e8eaf0; --muted: #8892a4; --white: #ffffff;
+      --card-bg: #131d3b; --border: rgba(0,200,255,0.15);
+    }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--navy); color: var(--text); line-height: 1.6; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,15,44,0.97); border-bottom: 1px solid var(--border); backdrop-filter: blur(8px); }
+    .nav-inner { max-width: 1140px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+    .nav-logo { font-size: 1.25rem; font-weight: 700; color: var(--white); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    /* PAGE HERO */
+    .page-hero {
+      background: linear-gradient(135deg, #0a0f2c 0%, #0d1a3a 60%, #0a1628 100%);
+      border-bottom: 1px solid var(--border); padding: 80px 24px 64px; position: relative; overflow: hidden;
+    }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 15% 50%, rgba(0,120,212,0.15) 0%, transparent 70%); }
+    .page-hero-inner { max-width: 1140px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-eyebrow { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; color: var(--white); margin-bottom: 14px; }
+    .page-hero p { font-size: 1.1rem; color: var(--muted); max-width: 600px; }
+
+    /* COMMON */
+    section { padding: 72px 24px; }
+    .section-inner { max-width: 1140px; margin: 0 auto; }
+    .section-label { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
+    .section-title { font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 800; color: var(--white); margin-bottom: 10px; }
+    .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; margin: 14px 0 32px; }
+    .section-body { font-size: 1rem; color: var(--muted); max-width: 720px; line-height: 1.8; }
+    .btn { display: inline-block; padding: 13px 30px; border-radius: 4px; font-weight: 700; font-size: 0.88rem; text-decoration: none; transition: all 0.2s; }
+    .btn-primary { background: var(--accent2); color: #fff; border: 2px solid var(--accent2); }
+    .btn-primary:hover { background: var(--accent); border-color: var(--accent); color: var(--navy); }
+    .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+    .btn-outline:hover { background: var(--accent); color: var(--navy); }
+
+    /* MISSION */
+    .mission { background: var(--navy2); }
+    .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    @media (max-width: 700px) { .mission-grid { grid-template-columns: 1fr; } }
+    .mission-text p { color: var(--muted); font-size: 0.97rem; line-height: 1.85; margin-bottom: 18px; }
+    .mission-text p:last-child { margin-bottom: 0; }
+    .mission-stat-stack { display: flex; flex-direction: column; gap: 16px; }
+    .mission-stat {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 24px 28px; border-left: 3px solid var(--accent2);
+    }
+    .mission-stat h3 { font-size: 1.5rem; font-weight: 900; color: var(--accent); margin-bottom: 4px; }
+    .mission-stat p { font-size: 0.85rem; color: var(--muted); }
+
+    /* VALUES */
+    .values { background: var(--navy); }
+    .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .value-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 28px 24px; position: relative; overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .value-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .value-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+    .value-icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .value-card h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .value-card p { font-size: 0.88rem; color: var(--muted); }
+
+    /* EXPERTISE */
+    .expertise { background: var(--navy2); }
+    .expertise-list { display: flex; flex-direction: column; gap: 2px; max-width: 800px; }
+    .exp-item {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 20px 24px; background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 6px; transition: border-color 0.2s;
+    }
+    .exp-item:hover { border-color: var(--accent); }
+    .exp-num { font-size: 1.2rem; font-weight: 900; color: var(--accent2); min-width: 32px; flex-shrink: 0; margin-top: 2px; }
+    .exp-item h4 { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .exp-item p { font-size: 0.85rem; color: var(--muted); }
+
+    /* CTA */
+    .cta-strip { background: linear-gradient(90deg, var(--accent2) 0%, #005fa3 100%); padding: 56px 24px; text-align: center; }
+    .cta-strip h2 { font-size: 1.9rem; font-weight: 800; color: #fff; margin-bottom: 12px; }
+    .cta-strip p { color: rgba(255,255,255,0.8); margin-bottom: 28px; }
+    .btn-white { background: #fff; color: var(--accent2); border: 2px solid #fff; font-weight: 700; }
+    .btn-white:hover { background: transparent; color: #fff; }
+
+    /* FOOTER */
+    footer { background: #060a1a; border-top: 1px solid var(--border); padding: 28px 24px; }
+    .footer-bottom { max-width: 1140px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; }
+    .footer-bottom p { color: var(--muted); font-size: 0.8rem; }
+    .footer-bottom a { color: var(--accent); text-decoration: none; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Hora <span>Technologies</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About Us</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="why-choose-us.html">Why Choose Us</a></li>
+      <li><a href="partners.html">Partners</a></li>
+      <li><a href="contact.html">Get In Touch</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">Who We Are</div>
+    <h1>About Us</h1>
+    <p>Transforming Businesses Through Innovation</p>
+  </div>
+</div>
+
+<!-- MISSION -->
+<section class="mission">
+  <div class="section-inner">
+    <div class="section-label">Our Mission</div>
+    <h2 class="section-title">Empowering Businesses with Innovative Technology</h2>
+    <div class="divider"></div>
+    <div class="mission-grid">
+      <div class="mission-text">
+        <p>Empowering businesses with innovative technology solutions that deliver measurable results and sustainable competitive advantage.</p>
+        <p>Based in New Delhi, India, Hora Technologies is your trusted partner in digital transformation. We specialise in cutting-edge IT solutions that drive business growth and operational excellence. Our team of expert engineers and consultants delivers enterprise-grade technology services tailored to your unique challenges.</p>
+        <p>From artificial intelligence to cloud infrastructure, we combine technical expertise with strategic insight to help organisations thrive in the digital age. We do IT right, every time.</p>
+      </div>
+      <div class="mission-stat-stack">
+        <div class="mission-stat">
+          <h3>AI + Cloud</h3>
+          <p>End-to-end AI, ML, and cloud migration capabilities for modern enterprises.</p>
+        </div>
+        <div class="mission-stat">
+          <h3>Cyber</h3>
+          <p>Comprehensive cybersecurity services — threat detection to compliance management.</p>
+        </div>
+        <div class="mission-stat">
+          <h3>Global</h3>
+          <p>Serving clients across sectors worldwide from our base in New Delhi, India.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="section-inner">
+    <div class="section-label">Our Values</div>
+    <h2 class="section-title">What Drives Us</h2>
+    <div class="divider"></div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🎯</div>
+        <h3>Results-Oriented</h3>
+        <p>Every engagement is measured against real business outcomes — not just technical deliverables.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <h3>Partnership Mindset</h3>
+        <p>We build long-term relationships, acting as an extension of your team rather than a vendor.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🚀</div>
+        <h3>Innovation First</h3>
+        <p>We continuously invest in emerging technologies to keep our clients ahead of the curve.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🔒</div>
+        <h3>Security by Design</h3>
+        <p>Cybersecurity and compliance are built into every solution from the ground up.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⚙️</div>
+        <h3>Engineering Excellence</h3>
+        <p>Rigorous standards, thorough testing, and clean architecture underpin everything we deliver.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌍</div>
+        <h3>Global Perspective</h3>
+        <p>Drawing on international experience and a trusted technology ecosystem to serve clients worldwide.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section class="expertise">
+  <div class="section-inner">
+    <div class="section-label">Core Expertise</div>
+    <h2 class="section-title">What We Bring to the Table</h2>
+    <div class="divider"></div>
+    <div class="expertise-list">
+      <div class="exp-item">
+        <div class="exp-num">01</div>
+        <div>
+          <h4>Artificial Intelligence &amp; Machine Learning</h4>
+          <p>Generative AI, agentic systems, predictive analytics, and intelligent automation that turn data into competitive advantage.</p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-num">02</div>
+        <div>
+          <h4>Cybersecurity &amp; Compliance</h4>
+          <p>Threat detection, vulnerability management, SIEM/XDR, CMMC readiness, and end-to-end compliance management.</p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-num">03</div>
+        <div>
+          <h4>Cloud &amp; Data Migration</h4>
+          <p>Seamless transition to cloud infrastructure with zero-downtime migration, optimisation, and ongoing management.</p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-num">04</div>
+        <div>
+          <h4>Unified Infrastructure</h4>
+          <p>Integrated infrastructure solutions that consolidate IT environments, improve efficiency, and enhance scalability.</p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-num">05</div>
+        <div>
+          <h4>Strategic Technology Partnerships</h4>
+          <p>Backed by an ecosystem including Premier Federal and Trend Micro — bringing world-class capabilities to every engagement.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <h2>Ready to Work With Us?</h2>
+  <p>Let's explore how Hora Technologies can accelerate your digital transformation.</p>
+  <a href="contact.html" class="btn btn-white">Get In Touch</a>
+  <a href="services.html" class="btn btn-outline" style="border-color: rgba(255,255,255,0.6); color:#fff; margin-left:14px;">Our Services →</a>
+</section>
+
+<footer>
+  <div class="footer-bottom">
+    <p>© 2026 Hora Technologies · <a href="mailto:info@hora-tech.com">info@hora-tech.com</a> · New Delhi, India</p>
+    <a href="index.html">← Back to Home</a>
+  </div>
+</footer>
+
+</body>
+</html>
